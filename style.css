@@ -1,0 +1,470 @@
+/* ===========================================================
+   PERFECT DAY — stylesheet
+   =========================================================== */
+
+/* Box model reset — applied to every element.
+   Without this, padding/border ADD to your declared width
+   instead of being included in it, which makes layout math
+   confusing. This line makes width mean "the whole box". */
+:root {
+  --night-bordeaux: #4f000b;
+  --dark-amaranth:  #720026;
+  --amaranth:       #ce4257;
+  --coral-glow:     #ff7f51;
+  --sandy-brown:    #ff9b54;
+
+  --text-light: #FFF3EC;   /* soft warm white — for text on dark backgrounds */
+  --beige: #F1E3C6;
+  --beige-dark: #E4D2A8;
+}
+
+/* Root font-size baseline for rem units.
+   62.5% of the browser default (usually 16px) = 10px,
+   so 1rem = 10px, 1.6rem = 16px, etc — easy math.
+   Using % instead of a fixed px keeps it scaling correctly
+   if someone has changed their browser's default text size
+   for accessibility. */
+html {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  color: var(--text-light);
+  background: var(--night-bordeaux);
+}
+
+/* ---------- NAV BAR ---------- */
+.navbar {
+  display: flex;
+  justify-content: center;   /* centers the link group since there's no logo */
+  padding: 20px 40px;
+  position: sticky;          /* stays pinned to the top when you scroll */
+  top: 0;
+  background: linear-gradient(90deg, var(--coral-glow), var(--sandy-brown));
+  z-index: 10;                /* stays above the hero content below it */
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--night-bordeaux);
+  font-weight: 500;
+  font-family: 'Fontdiner Swanky', cursive;
+}
+
+.nav-links a:hover {
+  color: var(--text-light);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;       /* anchor point for the absolutely-positioned stickers */
+  overflow: hidden;         /* clips any sticker that hangs off the edge */
+  min-height: 90vh;         /* 90% of the visible screen height */
+  display: flex;
+  flex-direction: column;   /* stack children top-to-bottom */
+  align-items: center;      /* centers horizontally */
+  justify-content: flex-start;
+  text-align: center;
+  padding: 24px;
+  padding-top: 22vh;
+  background: linear-gradient(180deg,
+    var(--night-bordeaux) 0%,
+    var(--dark-amaranth) 35%,
+    var(--amaranth) 60%,
+    var(--coral-glow) 82%,
+    var(--sandy-brown) 100%
+  );
+}
+
+/* base look shared by every sticker */
+.hero-sticker {
+  position: absolute;       /* pulled out of normal flow, placed relative to .hero */
+  pointer-events: none;     /* stickers never block clicks on things beneath them */
+  opacity: 0.92;
+}
+
+.sticker-sun {
+  top: 6%;
+  right: 8%;
+  width: 130px;
+  animation: sticker-drift 7s ease-in-out infinite;
+}
+
+.sticker-coral {
+  bottom: 10%;
+  left: 5%;
+  width: 100px;
+  transform: rotate(-6deg);
+}
+
+.sticker-sunglasses {
+  top: 14%;
+  left: 8%;
+  width: 90px;
+  transform: rotate(-10deg);
+}
+
+.sticker-wave {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes sticker-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+@media (max-width: 640px) {
+  /* hide the smaller decorative stickers on tiny screens so they
+     don't overlap the title text */
+  .sticker-coral, .sticker-sunglasses, .sticker-books { display: none; }
+}
+
+.sticker-books {
+  bottom: 18%;
+  right: 6%;
+  width: 95px;
+  transform: rotate(8deg);
+}
+
+/* ---------- CATEGORY CARDS ---------- */
+.categories {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+}
+
+.categories-title {
+  text-align: center;
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  color: var(--dark-amaranth);
+  margin-bottom: 48px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--night-bordeaux);
+  background: var(--text-light);
+  border-radius: 18px;
+  padding: 36px 20px;
+  border: 3px solid transparent;
+  box-shadow: 0 8px 20px rgba(79, 0, 11, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) rotate(0deg) !important;
+  box-shadow: 0 16px 30px rgba(79, 0, 11, 0.25);
+  border-color: var(--coral-glow);
+}
+
+.card-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 14px;
+}
+
+.card h3 {
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.card p {
+  font-size: 1.4rem;
+  color: var(--dark-amaranth);
+  opacity: 0.8;
+}
+
+/* scattered postcard tilt, like index cards on a desk */
+.tilt-1 { transform: rotate(-2deg); }
+.tilt-2 { transform: rotate(1.5deg); }
+.tilt-3 { transform: rotate(-1deg); }
+.tilt-4 { transform: rotate(2deg); }
+
+@media (max-width: 640px) {
+  .tilt-1, .tilt-2, .tilt-3, .tilt-4 { transform: none; }
+}
+
+.hero-title {
+  font-family: 'Henny Penny', cursive;
+  font-size: clamp(4rem, 8vw, 8rem); /* was 2.5rem/5rem under old 16px base — scaled up to match, since 1rem is now 10px not 16px */
+  color: var(--text-light);
+}
+
+.hero-title em {
+  font-style: normal;
+  color: var(--sandy-brown);
+}
+
+/* ---------- EXPLORE BUTTON ---------- */
+.explore-btn {
+  display: inline-block;                   /* anchors are inline by default — this makes padding behave like on a real button */
+  text-decoration: none;                   /* removes the default underline links get */
+  margin-top: 32px;
+  padding: 14px 40px;
+  font-size: 1.6rem;
+  font-family: 'Fontdiner Swanky', cursive;
+  font-weight: 600;
+  color: var(--night-bordeaux);
+  background: var(--coral-glow);
+  border-radius: 16px;                     /* rounded corners */
+  border: 3px solid transparent;           /* reserved space, so the border added on hover doesn't shift layout */
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+.explore-btn:hover {
+  background: var(--sandy-brown);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  border-color: var(--text-light);
+  transform: translateY(-3px);
+}
+
+.explore-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- EXPLORE PAGE ---------- */
+.explore-page {
+  min-height: 90vh;
+  padding: 80px 24px 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, var(--night-bordeaux) 0%, var(--dark-amaranth) 100%);
+}
+
+.explore-title {
+  text-align: center;
+  font-family: 'Henny Penny', cursive;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  color: var(--text-light);
+  margin-bottom: 56px;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.beige-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--night-bordeaux);
+  background: var(--beige);
+  border-radius: 18px;
+  padding: 44px 24px;
+  border: 3px solid transparent;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.beige-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.45);  /* shadow appears behind the box on hover */
+  border-color: var(--beige-dark);
+}
+
+.box-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
+
+.beige-box h3 {
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: 1.9rem;
+  margin-bottom: 6px;
+}
+
+.beige-box p {
+  font-size: 1.4rem;
+  opacity: 0.75;
+}
+
+  .box-icon-large {
+    width: 140px;
+    height: 140px;
+  }
+
+/* ===========================================================
+   SIDEQUESTS PAGE
+   =========================================================== */
+.sidequest-page {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  padding: 70px 24px 120px;
+  background: linear-gradient(180deg, var(--night-bordeaux) 0%, var(--dark-amaranth) 45%, var(--amaranth) 100%);
+}
+
+.sq-title {
+  text-align: center;
+  font-family: 'Henny Penny', cursive;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  color: var(--text-light);
+  position: relative;
+  z-index: 1;
+}
+
+.sq-subtitle {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--text-light);
+  opacity: 0.8;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+/* decorative stickers scattered across the page, same technique as the hero */
+.sq-sticker-sun {
+  top: 4%;
+  right: 6%;
+  width: 110px;
+  animation: sticker-drift 7s ease-in-out infinite;
+}
+
+.sq-sticker-coral {
+  top: 40%;
+  left: 2%;
+  width: 90px;
+  transform: rotate(-8deg);
+  opacity: 0.5;
+}
+
+.sq-sticker-sunglasses {
+  top: 8%;
+  left: 6%;
+  width: 80px;
+  transform: rotate(-10deg);
+}
+
+.sq-sticker-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+@media (max-width: 640px) {
+  .sq-sticker-coral, .sq-sticker-sunglasses { display: none; }
+}
+
+/* ---------- each vibe category ---------- */
+.quest-category {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+
+.quest-category-title {
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: 2rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+/* horizontally scrollable strip of quest cards */
+.quest-scroll {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;             /* enables horizontal scrolling */
+  scroll-snap-type: x mandatory; /* cards snap into place as you scroll */
+  padding-bottom: 16px;          /* room for the scrollbar so it doesn't touch card edges */
+}
+
+.quest-card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;      /* don't grow/shrink — each card keeps its own width */
+  width: 280px;
+  background: var(--beige);
+  border-radius: 18px;
+  padding: 24px 22px;
+  border: 3px solid transparent;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  color: var(--night-bordeaux);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.quest-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.4);
+  border-color: var(--coral-glow);
+}
+
+.quest-emoji {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+.quest-emoji-img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+}
+
+.quest-card h3 {
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.quest-location {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--dark-amaranth);
+  margin-bottom: 8px;
+}
+
+.quest-desc {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+/* nicer scrollbar for the quest strips, where supported */
+.quest-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.quest-scroll::-webkit-scrollbar-thumb {
+  background: var(--coral-glow);
+  border-radius: 8px;
+}
+.quest-scroll::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+}
