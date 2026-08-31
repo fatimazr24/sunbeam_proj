@@ -1,11 +1,3 @@
-/* ===========================================================
-   PERFECT DAY — stylesheet
-   =========================================================== */
-
-/* Box model reset — applied to every element.
-   Without this, padding/border ADD to your declared width
-   instead of being included in it, which makes layout math
-   confusing. This line makes width mean "the whole box". */
 :root {
   --night-bordeaux: #4f000b;
   --dark-amaranth:  #720026;
@@ -18,12 +10,6 @@
   --beige-dark: #E4D2A8;
 }
 
-/* Root font-size baseline for rem units.
-   62.5% of the browser default (usually 16px) = 10px,
-   so 1rem = 10px, 1.6rem = 16px, etc — easy math.
-   Using % instead of a fixed px keeps it scaling correctly
-   if someone has changed their browser's default text size
-   for accessibility. */
 html {
   font-size: 62.5%;
 }
@@ -43,12 +29,12 @@ body {
 /* ---------- NAV BAR ---------- */
 .navbar {
   display: flex;
-  justify-content: center;   /* centers the link group since there's no logo */
+  justify-content: center;   
   padding: 20px 40px;
-  position: sticky;          /* stays pinned to the top when you scroll */
+  position: sticky;         
   top: 0;
   background: linear-gradient(90deg, var(--coral-glow), var(--sandy-brown));
-  z-index: 10;                /* stays above the hero content below it */
+  z-index: 10;              
 }
 
 .nav-links {
@@ -70,12 +56,12 @@ body {
 
 /* ---------- HERO ---------- */
 .hero {
-  position: relative;       /* anchor point for the absolutely-positioned stickers */
-  overflow: hidden;         /* clips any sticker that hangs off the edge */
-  min-height: 90vh;         /* 90% of the visible screen height */
+  position: relative;     
+  overflow: hidden;         
+  min-height: 90vh;       
   display: flex;
-  flex-direction: column;   /* stack children top-to-bottom */
-  align-items: center;      /* centers horizontally */
+  flex-direction: column;  
+  align-items: center;     
   justify-content: flex-start;
   text-align: center;
   padding: 24px;
@@ -89,10 +75,10 @@ body {
   );
 }
 
-/* base look shared by every sticker */
+
 .hero-sticker {
-  position: absolute;       /* pulled out of normal flow, placed relative to .hero */
-  pointer-events: none;     /* stickers never block clicks on things beneath them */
+  position: absolute;      
+  pointer-events: none;  
   opacity: 0.92;
 }
 
@@ -130,8 +116,6 @@ body {
 }
 
 @media (max-width: 640px) {
-  /* hide the smaller decorative stickers on tiny screens so they
-     don't overlap the title text */
   .sticker-coral, .sticker-sunglasses, .sticker-books { display: none; }
 }
 
@@ -202,7 +186,7 @@ body {
   opacity: 0.8;
 }
 
-/* scattered postcard tilt, like index cards on a desk */
+
 .tilt-1 { transform: rotate(-2deg); }
 .tilt-2 { transform: rotate(1.5deg); }
 .tilt-3 { transform: rotate(-1deg); }
@@ -225,8 +209,8 @@ body {
 
 /* ---------- EXPLORE BUTTON ---------- */
 .explore-btn {
-  display: inline-block;                   /* anchors are inline by default — this makes padding behave like on a real button */
-  text-decoration: none;                   /* removes the default underline links get */
+  display: inline-block;                  
+  text-decoration: none;                   
   margin-top: 32px;
   padding: 14px 40px;
   font-size: 1.6rem;
@@ -234,8 +218,8 @@ body {
   font-weight: 600;
   color: var(--night-bordeaux);
   background: var(--coral-glow);
-  border-radius: 16px;                     /* rounded corners */
-  border: 3px solid transparent;           /* reserved space, so the border added on hover doesn't shift layout */
+  border-radius: 16px;                    
+  border: 3px solid transparent;          
   cursor: pointer;
   transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
 }
@@ -317,9 +301,7 @@ body {
     height: 140px;
   }
 
-/* ===========================================================
-   SIDEQUESTS PAGE
-   =========================================================== */
+/* SIDEQUESTS PAGE */
 .sidequest-page {
   position: relative;
   overflow: hidden;
@@ -347,7 +329,7 @@ body {
   z-index: 1;
 }
 
-/* decorative stickers scattered across the page, same technique as the hero */
+
 .sq-sticker-sun {
   top: 4%;
   right: 6%;
@@ -402,7 +384,7 @@ body {
   display: flex;
   gap: 22px;
   overflow-x: auto;             /* enables horizontal scrolling */
-  scroll-snap-type: x mandatory; /* cards snap into place as you scroll */
+  scroll-snap-type: x mandatory; 
   padding-bottom: 16px;          /* room for the scrollbar so it doesn't touch card edges */
 }
 
